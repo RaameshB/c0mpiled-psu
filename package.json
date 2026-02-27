@@ -1,0 +1,7 @@
+{
+  "name": "c0mpiled-psu",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ]
+}
