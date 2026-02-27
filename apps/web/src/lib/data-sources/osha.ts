@@ -7,13 +7,28 @@ import {
   type DataSourceResult,
 } from "@/lib/types/research";
 
-const OSHA_BASE = "https://enforcedata.dol.gov/api/enforcement/osha_inspection";
+const OSHA_BASE = "https://api.dol.gov/v2/osha/inspection";
 
 // ---------------------------------------------------------------------------
 // OSHA inspection search by establishment name
+// DOL v2 API requires an API key via X-API-KEY header.
+// If no key is set, this source degrades gracefully.
 // ---------------------------------------------------------------------------
 
-interface OshaApiResponse {
+interface OshaV2Response {
+  data?: Array<{
+    activity_nr: string;
+    estab_name: string;
+    site_state: string;
+    open_date: string;
+    close_case_date: string;
+    viol_type: string;
+    total_current_penalty: string | number;
+    insp_type: string;
+    naics_code: string;
+    sic_code: string;
+  }>;
+  // v1 fallback shape
   results?: Array<{
     activity_nr: string;
     estab_name: string;
@@ -32,16 +47,21 @@ export async function fetchOshaInspections(
   companyName: string,
   limit = 25,
 ): Promise<DataSourceResult<OshaInspection[]>> {
+  const apiKey = process.env.DOL_API_KEY;
+  if (!apiKey) {
+    return sourceError("osha:inspections", "DOL_API_KEY is not set -- OSHA data unavailable");
+  }
+
   try {
     const url = new URL(OSHA_BASE);
-    url.searchParams.set("estab_name", companyName);
-    url.searchParams.set("limit", String(limit));
-    url.searchParams.set("sort", "-open_date");
+    url.searchParams.set("filters", `estab_name sw '${companyName.toUpperCase()}'`);
+    url.searchParams.set("page", "0");
+    url.searchParams.set("size", String(limit));
 
     const response = await fetch(url.toString(), {
       headers: {
         Accept: "application/json",
-        "X-API-KEY": process.env.DOL_API_KEY ?? "",
+        "X-API-KEY": apiKey,
       },
       next: { revalidate: 3600 },
     });
@@ -50,8 +70,10 @@ export async function fetchOshaInspections(
       throw new Error(`OSHA API returned ${response.status}: ${response.statusText}`);
     }
 
-    const raw: OshaApiResponse = await response.json();
-    const inspections = (raw.results ?? []).map((r) => ({
+    const raw: OshaV2Response = await response.json();
+    const records = raw.data ?? raw.results ?? [];
+
+    const inspections = records.map((r) => ({
       activityNumber: r.activity_nr,
       establishmentName: r.estab_name,
       siteState: r.site_state,

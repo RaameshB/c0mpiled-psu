@@ -89,15 +89,23 @@ export async function fetchStockQuote(ticker: string): Promise<DataSourceResult<
     if (!item) return sourceError("fmp:quote", `No quote for ${ticker}`);
 
     const rec = item as Record<string, unknown>;
+    const rawTimestamp = rec.timestamp;
+    const timestamp =
+      typeof rawTimestamp === "number"
+        ? new Date(rawTimestamp * 1000).toISOString()
+        : typeof rawTimestamp === "string"
+          ? rawTimestamp
+          : new Date().toISOString();
+
     const mapped = {
       symbol: rec.symbol,
       price: rec.price,
       change: rec.change,
-      changePercent: rec.changesPercentage ?? rec.changePercent,
+      changePercent: rec.changePercentage ?? rec.changesPercentage ?? rec.changePercent,
       volume: rec.volume,
       marketCap: rec.marketCap ?? rec.mktCap,
       pe: rec.pe ?? rec.priceEarningsRatio ?? null,
-      timestamp: rec.timestamp ?? new Date().toISOString(),
+      timestamp,
     };
 
     const quote = safeParse(StockQuoteSchema, mapped, null as unknown as StockQuote);
