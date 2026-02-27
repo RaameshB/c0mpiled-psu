@@ -2,9 +2,6 @@ export {
   fetchCompanyProfile,
   fetchStockQuote,
   fetchHistoricalPrices,
-  fetchIncomeStatements,
-  fetchBalanceSheets,
-  fetchCashFlows,
   fetchFinancialHealth,
 } from "./fmp";
 
@@ -26,11 +23,6 @@ export {
   fetchEnvironmentalViolations,
   fetchFacilityCompliance,
 } from "./epa";
-
-export {
-  fetchOshaInspections,
-  summarizeOshaInspections,
-} from "./osha";
 
 export {
   searchWeb,

@@ -281,15 +281,11 @@ export const AggregatedCompanyDataSchema = z.object({
   profile: DataSourceResultSchema(CompanyProfileSchema),
   stockQuote: DataSourceResultSchema(StockQuoteSchema),
   historicalPrices: DataSourceResultSchema(z.array(HistoricalPriceSchema)),
-  incomeStatements: DataSourceResultSchema(z.array(IncomeStatementSchema)),
-  balanceSheets: DataSourceResultSchema(z.array(BalanceSheetSchema)),
-  cashFlows: DataSourceResultSchema(z.array(CashFlowStatementSchema)),
   financialHealth: DataSourceResultSchema(FinancialHealthSchema),
   secFilings: DataSourceResultSchema(z.array(SecFilingSchema)),
   news: DataSourceResultSchema(z.array(NewsArticleSchema)),
   macroIndicators: DataSourceResultSchema(z.array(MacroIndicatorSchema)),
   environmentalViolations: DataSourceResultSchema(z.array(EnvironmentalViolationSchema)),
-  oshaInspections: DataSourceResultSchema(z.array(OshaInspectionSchema)),
   webResearch: DataSourceResultSchema(z.array(WebResearchResultSchema)),
 });
 

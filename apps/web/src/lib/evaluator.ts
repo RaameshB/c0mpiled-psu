@@ -127,23 +127,6 @@ function buildDataSnapshot(data: AggregatedCompanyData): string {
 - ROE: ${h.returnOnEquity ?? "N/A"} | ROA: ${h.returnOnAssets ?? "N/A"}`);
   }
 
-  // Income statements (last 4 quarters)
-  if (data.incomeStatements.success && data.incomeStatements.data?.length) {
-    const stmts = data.incomeStatements.data.slice(0, 4);
-    sections.push(`## Income Statements (Last ${stmts.length} Quarters)
-${stmts.map((s) => `- ${s.date}: Revenue $${formatNumber(s.revenue)} | Net Income $${formatNumber(s.netIncome)} | Margin ${(s.netIncomeRatio * 100).toFixed(1)}%`).join("\n")}`);
-  }
-
-  // Balance sheets
-  if (data.balanceSheets.success && data.balanceSheets.data?.length) {
-    const bs = data.balanceSheets.data[0];
-    sections.push(`## Latest Balance Sheet (${bs.date})
-- Total Assets: $${formatNumber(bs.totalAssets)}
-- Total Debt: $${formatNumber(bs.totalDebt)} | Net Debt: $${formatNumber(bs.netDebt)}
-- Cash: $${formatNumber(bs.cashAndEquivalents)}
-- Current Ratio: ${(bs.totalCurrentAssets / bs.totalCurrentLiabilities).toFixed(2)}`);
-  }
-
   // SEC filings
   if (data.secFilings.success && data.secFilings.data?.length) {
     sections.push(`## Recent SEC Filings (${data.secFilings.data.length} total)
@@ -173,15 +156,6 @@ ${data.macroIndicators.data.map((m) => {
     sections.push(`## Environmental Violations (${viols.length} facilities)
 - Total Penalties: $${formatNumber(totalPenalties)}
 ${viols.slice(0, 5).map((v) => `- ${v.facilityName} (${v.state}): ${v.violationType} | Status: ${v.complianceStatus} | Penalty: $${formatNumber(v.penaltyAmount ?? 0)}`).join("\n")}`);
-  }
-
-  // OSHA inspections
-  if (data.oshaInspections.success && data.oshaInspections.data?.length) {
-    const insp = data.oshaInspections.data;
-    const totalPenalties = insp.reduce((sum, i) => sum + i.penaltyAmount, 0);
-    sections.push(`## OSHA Inspections (${insp.length} total)
-- Total Penalties: $${formatNumber(totalPenalties)}
-${insp.slice(0, 5).map((i) => `- ${i.openDate}: ${i.establishmentName} (${i.siteState}) | Type: ${i.violationType ?? "N/A"} | Penalty: $${formatNumber(i.penaltyAmount)}`).join("\n")}`);
   }
 
   // Web research
