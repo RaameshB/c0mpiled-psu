@@ -76,6 +76,7 @@ export function triggerAnalysis(vendorName: string): {
   vendorName: string;
   status: VendorStatus;
   estimatedCompletionSeconds: number;
+  pipelinePromise: Promise<void>;
 } {
   const vendorId = generateVendorId();
 
@@ -91,8 +92,7 @@ export function triggerAnalysis(vendorName: string): {
 
   store.set(vendorId, entry);
 
-  // Fire and forget -- run the full pipeline in the background
-  runPipeline(vendorId, vendorName).catch((err) => {
+  const pipelinePromise = runPipeline(vendorId, vendorName).catch((err) => {
     console.error(`[vendor-store] Pipeline failed for ${vendorId}:`, err);
     const existing = store.get(vendorId);
     if (existing) {
@@ -106,6 +106,7 @@ export function triggerAnalysis(vendorName: string): {
     vendorName,
     status: "processing",
     estimatedCompletionSeconds: 15,
+    pipelinePromise,
   };
 }
 
