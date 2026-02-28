@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod/v4";
 import { aggregateCompanyData, aggregateBatch } from "@/lib/aggregator";
 import { evaluateCompanyData, evaluateBatch } from "@/lib/evaluator";
+import { partitionVariables, partitionBatch } from "@/lib/partitioner";
 import { CompanyIdentifierSchema } from "@/lib/types/research";
 
 const RequestSchema = z.object({
@@ -28,12 +29,14 @@ export async function POST(request: NextRequest) {
       ? [await aggregateCompanyData(companies[0])]
       : await aggregateBatch(companies);
 
-    // Optionally skip LLM evaluation (return raw aggregated data)
+    // Optionally skip LLM evaluation (return raw aggregated data + partitioned variables)
     if (skipEvaluation) {
+      const partitioned = aggregated.map((a) => partitionVariables(a, null));
       return NextResponse.json({
         status: "success",
         pipeline: "aggregate-only",
         results: aggregated,
+        modelVariables: partitioned,
       });
     }
 
@@ -42,11 +45,15 @@ export async function POST(request: NextRequest) {
       ? [await evaluateCompanyData(aggregated[0])]
       : await evaluateBatch(aggregated);
 
+    // Partition variables into categories tagged with industry for the JAX model
+    const partitioned = partitionBatch(aggregated, evaluated);
+
     return NextResponse.json({
       status: "success",
       pipeline: "aggregate-and-evaluate",
       results: evaluated,
       aggregatedData: aggregated,
+      modelVariables: partitioned,
     });
   } catch (err) {
     console.error("[research-api]", err);

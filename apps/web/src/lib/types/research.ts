@@ -292,6 +292,52 @@ export const AggregatedCompanyDataSchema = z.object({
 export type AggregatedCompanyData = z.infer<typeof AggregatedCompanyDataSchema>;
 
 // ---------------------------------------------------------------------------
+// Variable categories & industry tags for JAX model partitioning
+// ---------------------------------------------------------------------------
+
+export const VARIABLE_CATEGORIES = ["financial", "operational", "geographical", "ethical"] as const;
+export type VariableCategory = (typeof VARIABLE_CATEGORIES)[number];
+
+export const INDUSTRY_SECTORS = [
+  "Technology",
+  "Healthcare",
+  "Finance",
+  "Energy",
+  "Natural Resources",
+  "Industrials",
+  "Consumer Discretionary",
+  "Consumer Staples",
+  "Utilities",
+  "Real Estate",
+  "Telecommunications",
+  "Transportation",
+  "Agriculture",
+  "Defense",
+  "Unknown",
+] as const;
+export type IndustrySector = (typeof INDUSTRY_SECTORS)[number];
+
+export const PartitionedVariableSchema = z.object({
+  name: z.string(),
+  value: z.number(),
+  category: z.enum(VARIABLE_CATEGORIES),
+  industry: z.enum(INDUSTRY_SECTORS),
+});
+
+export type PartitionedVariable = z.infer<typeof PartitionedVariableSchema>;
+
+export const PartitionedVariablesSchema = z.object({
+  company: CompanyIdentifierSchema,
+  industry: z.enum(INDUSTRY_SECTORS),
+  financial: z.array(PartitionedVariableSchema),
+  operational: z.array(PartitionedVariableSchema),
+  geographical: z.array(PartitionedVariableSchema),
+  ethical: z.array(PartitionedVariableSchema),
+});
+
+export type PartitionedVariables = z.infer<typeof PartitionedVariablesSchema>;
+
+// ---------------------------------------------------------------------------
 // Evaluated data -- output of LLM evaluation pass
 // ---------------------------------------------------------------------------
 
