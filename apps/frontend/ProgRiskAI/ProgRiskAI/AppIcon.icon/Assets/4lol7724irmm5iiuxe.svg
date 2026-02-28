@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090E17" />
+      <stop offset="100%" stop-color="#162238" />
+    </linearGradient>
+
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#213966" />
+      <stop offset="100%" stop-color="#0A152B" />
+    </linearGradient>
+    <linearGradient id="shieldStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3A60A6" />
+      <stop offset="100%" stop-color="#1A2D54" />
+    </linearGradient>
+
+    <linearGradient id="t1_top" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00C9FF" />
+      <stop offset="100%" stop-color="#92FE9D" />
+    </linearGradient>
+    <linearGradient id="t1_bl" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4FACFE" />
+      <stop offset="100%" stop-color="#00F2FE" />
+    </linearGradient>
+    <linearGradient id="t1_br" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#667EEA" />
+      <stop offset="100%" stop-color="#764BA2" />
+    </linearGradient>
+
+    <linearGradient id="nodeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#D0E4F7" />
+    </linearGradient>
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E0EAFC" />
+    </linearGradient>
+  </defs>
+
+  <rect width="1024" height="1024" fill="url(#bgGrad)" />
+
+  <g transform="translate(0, 10)">
+    
+    <path d="M512,140 C720,140 860,300 860,500 C860,760 512,960 512,960 C512,960 164,760 164,500 C164,300 304,140 512,140 Z" 
+          fill="url(#shieldGrad)" 
+          stroke="url(#shieldStroke)" 
+          stroke-width="8" 
+          opacity="0.8"/>
+
+    <g stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M512,370 L373,270" />
+      <path d="M512,370 L651,270" />
+      <path d="M400,565 L220,520" />
+      <path d="M400,565 L330,740" />
+      <path d="M624,565 L804,520" />
+      <path d="M624,565 L694,740" />
+      
+      <path d="M512,500 L512,370" />
+      <path d="M512,500 L400,565" />
+      <path d="M512,500 L624,565" />
+    </g>
+
+    <g style="mix-blend-mode: normal;">
+      <circle cx="512" cy="370" r="140" fill="url(#t1_top)" opacity="0.85" />
+      <circle cx="400" cy="565" r="140" fill="url(#t1_bl)" opacity="0.85" />
+      <circle cx="624" cy="565" r="140" fill="url(#t1_br)" opacity="0.85" />
+    </g>
+
+    <g fill="url(#nodeGrad)" stroke="#162238" stroke-width="4" stroke-opacity="0.5">
+      <polygon points="0,-35 30.3,-17.5 30.3,17.5 0,35 -30.3,17.5 -30.3,-17.5" transform="translate(373, 270)" />
+      <polygon points="0,-35 30.3,-17.5 30.3,17.5 0,35 -30.3,17.5 -30.3,-17.5" transform="translate(651, 270)" />
+      
+      <polygon points="0,-35 30.3,-17.5 30.3,17.5 0,35 -30.3,17.5 -30.3,-17.5" transform="translate(220, 520)" />
+      <polygon points="0,-35 30.3,-17.5 30.3,17.5 0,35 -30.3,17.5 -30.3,-17.5" transform="translate(330, 740)" />
+      
+      <polygon points="0,-35 30.3,-17.5 30.3,17.5 0,35 -30.3,17.5 -30.3,-17.5" transform="translate(804, 520)" />
+      <polygon points="0,-35 30.3,-17.5 30.3,17.5 0,35 -30.3,17.5 -30.3,-17.5" transform="translate(694, 740)" />
+    </g>
+
+    <g transform="translate(512, 500)">
+      <polygon points="0,-75 65,-37.5 65,37.5 0,75 -65,37.5 -65,-37.5" fill="url(#coreGrad)" stroke="#162238" stroke-width="6" stroke-opacity="0.3"/>
+      <circle cx="0" cy="0" r="35" fill="#162238" opacity="0.9" />
+      <circle cx="0" cy="0" r="12" fill="#00F2FE" />
+    </g>
+
+  </g>
+</svg>
