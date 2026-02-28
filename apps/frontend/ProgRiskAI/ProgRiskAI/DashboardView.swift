@@ -231,9 +231,9 @@ private struct TabButton: View {
             VStack(spacing: 6) {
                 HStack(spacing: 7) {
                     Image(systemName: icon)
-                        .font(.system(size: 13, weight: .semibold))
+                        .font(.system(size: 14, weight: .semibold))
                     Text(title)
-                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .font(.system(size: 16, weight: .semibold, design: .rounded))
 
                     // Keyboard shortcut hint
                     Text("\(index + 1)")
@@ -287,7 +287,7 @@ struct RiskBadge: View {
                 .frame(width: 6, height: 6)
                 .shadow(color: color.opacity(0.8), radius: 4)
             Text(level.rawValue.uppercased())
-                .font(.system(size: 10, weight: .bold, design: .rounded))
+                .font(.system(size: 12, weight: .bold, design: .rounded))
                 .foregroundColor(color)
         }
         .padding(.horizontal, 10)
@@ -363,11 +363,11 @@ struct DashCard<Content: View>: View {
                 HStack(spacing: 8) {
                     if let icon {
                         Image(systemName: icon)
-                            .font(.system(size: 14, weight: .semibold))
+                            .font(.system(size: 16, weight: .semibold))
                             .foregroundStyle(DesignSystem.Gradients.primaryAccent)
                     }
                     Text(title)
-                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                        .font(.system(size: 17, weight: .semibold, design: .rounded))
                         .foregroundColor(.white.opacity(0.9))
                     Spacer()
                 }
@@ -375,14 +375,7 @@ struct DashCard<Content: View>: View {
             content
         }
         .padding(20)
-        .background(
-            RoundedRectangle(cornerRadius: 20)
-                .glassEffect(.interactive)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(Color.white.opacity(0.09), lineWidth: 1)
-                )
-        )
+        .glassEffect(in: .rect(cornerRadius: 20))
     }
 }
 

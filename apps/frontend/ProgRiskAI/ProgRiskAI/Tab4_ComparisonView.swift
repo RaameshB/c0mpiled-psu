@@ -155,7 +155,7 @@ private struct RecommendationBanner: View {
                                 .fill(confidenceColor)
                                 .frame(width: 5, height: 5)
                             Text("\(recommendation.confidence.rawValue) Confidence")
-                                .font(.system(size: 10, weight: .bold, design: .rounded))
+                                .font(.system(size: 12, weight: .bold, design: .rounded))
                                 .foregroundColor(confidenceColor)
                         }
                         .padding(.horizontal, 8)
@@ -195,8 +195,8 @@ private struct MetricPill: View {
 
     var body: some View {
         Button(action: action) {
-            Text(label)
-                .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    Text(label)
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
                 .padding(.horizontal, 14)
                 .padding(.vertical, 7)
                 .foregroundStyle(isSelected
@@ -346,17 +346,14 @@ private struct VendorComparisonCard: View {
             }
         }
         .padding(18)
-        .background(
+        .glassEffect(in: .rect(cornerRadius: 20))
+        .overlay(
             RoundedRectangle(cornerRadius: 20)
-                .fill(.ultraThinMaterial)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 20)
-                        .stroke(
-                            isWinner
-                                ? AnyShapeStyle(LinearGradient(colors: [Color(hex: "00C9FF").opacity(0.6), Color(hex: "92FE9D").opacity(0.3)], startPoint: .topLeading, endPoint: .bottomTrailing))
-                                : AnyShapeStyle(Color.white.opacity(0.08)),
-                            lineWidth: isWinner ? 1.5 : 1
-                        )
+                .stroke(
+                    isWinner
+                        ? AnyShapeStyle(LinearGradient(colors: [Color(hex: "00C9FF").opacity(0.6), Color(hex: "92FE9D").opacity(0.3)], startPoint: .topLeading, endPoint: .bottomTrailing))
+                        : AnyShapeStyle(Color.clear),
+                    lineWidth: isWinner ? 1.5 : 0
                 )
         )
         .shadow(color: isWinner ? Color(hex: "00C9FF").opacity(0.1) : .clear, radius: 20)
@@ -381,10 +378,10 @@ private struct ScorePill: View {
     var body: some View {
         HStack(spacing: 5) {
             Text(label)
-                .font(.system(size: 11, design: .rounded))
+                .font(.system(size: 12, design: .rounded))
                 .foregroundColor(.white.opacity(0.45))
             Text("\(value)")
-                .font(.system(size: 13, weight: .black, design: .monospaced))
+                .font(.system(size: 14, weight: .black, design: .monospaced))
                 .foregroundColor(color)
         }
         .padding(.horizontal, 10)
@@ -410,7 +407,7 @@ private struct CategoryScoreBar: View {
     var body: some View {
         HStack(spacing: 10) {
             Text(String(score.category.prefix(5)))
-                .font(.system(size: 11, weight: .medium, design: .rounded))
+                .font(.system(size: 12, weight: .medium, design: .rounded))
                 .foregroundColor(.white.opacity(0.45))
                 .frame(width: 40, alignment: .leading)
 
@@ -453,7 +450,7 @@ private struct ReasonsPanel: View {
                     }
 
                     Text(reason)
-                        .font(.system(size: 14, design: .rounded))
+                        .font(.system(size: 15, design: .rounded))
                         .foregroundColor(.white.opacity(0.75))
                         .lineSpacing(3)
                         .frame(maxWidth: .infinity, alignment: .leading)

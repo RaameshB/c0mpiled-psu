@@ -74,8 +74,8 @@ private struct OverallRiskHeader: View {
         HStack(spacing: 0) {
             // Risk score
             VStack(spacing: 8) {
-                Text("Overall Risk")
-                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    Text("Overall Risk")
+                        .font(.system(size: 14, weight: .medium, design: .rounded))
                     .foregroundColor(.white.opacity(0.5))
 
                 ZStack {
@@ -111,8 +111,8 @@ private struct OverallRiskHeader: View {
 
             // Resilience score
             VStack(spacing: 8) {
-                Text("Overall Resilience")
-                    .font(.system(size: 13, weight: .medium, design: .rounded))
+                    Text("Overall Resilience")
+                        .font(.system(size: 14, weight: .medium, design: .rounded))
                     .foregroundColor(.white.opacity(0.5))
 
                 ZStack {
@@ -184,8 +184,8 @@ private struct RiskCategoryRow: View {
 
                     VStack(alignment: .leading, spacing: 6) {
                         HStack {
-                            Text(category.label)
-                                .font(.system(size: 15, weight: .semibold, design: .rounded))
+                    Text(category.label)
+                        .font(.system(size: 16, weight: .semibold, design: .rounded))
                                 .foregroundColor(.white.opacity(0.95))
                             Spacer()
                             RiskBadge(level: category.riskLevel)
@@ -212,7 +212,7 @@ private struct RiskCategoryRow: View {
             if isExpanded {
                 VStack(alignment: .leading, spacing: 14) {
                     Text(category.description)
-                        .font(.system(size: 13, design: .rounded))
+                        .font(.system(size: 14, design: .rounded))
                         .foregroundColor(.white.opacity(0.6))
                         .lineSpacing(4)
                         .padding(.leading, 54)
@@ -271,7 +271,7 @@ private struct MiniBar: View {
             }
             .frame(height: 5)
             Text("\(value)")
-                .font(.system(size: 10, weight: .bold, design: .monospaced))
+                .font(.system(size: 12, weight: .bold, design: .monospaced))
                 .foregroundColor(.white.opacity(0.75))
                 .frame(width: 24, alignment: .trailing)
         }
@@ -296,7 +296,7 @@ private struct SubCategoryCard: View {
             VStack(alignment: .leading, spacing: 3) {
                 HStack {
                     Text(sub.label)
-                        .font(.system(size: 13, weight: .semibold, design: .rounded))
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
                         .foregroundColor(.white.opacity(0.85))
                     Spacer()
                     Text("\(sub.riskScore)")
@@ -304,15 +304,18 @@ private struct SubCategoryCard: View {
                         .foregroundColor(riskColor)
                 }
                 Text(sub.description)
-                    .font(.system(size: 12, design: .rounded))
+                    .font(.system(size: 13, design: .rounded))
                     .foregroundColor(.white.opacity(0.5))
                     .lineSpacing(3)
                     .lineLimit(3)
             }
         }
         .padding(12)
-        .background(riskColor.opacity(0.05), in: RoundedRectangle(cornerRadius: 12))
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(riskColor.opacity(0.15), lineWidth: 1))
+        .glassEffect(in: .rect(cornerRadius: 12))
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(riskColor.opacity(0.2), lineWidth: 1)
+        )
         .opacity(appeared ? 1 : 0)
         .offset(x: appeared ? 0 : -16)
         .animation(.spring(duration: 0.4).delay(Double(index) * 0.07), value: appeared)
@@ -369,7 +372,7 @@ private struct DualAxisChart: View {
             HStack {
                 ForEach(categories, id: \.id) { cat in
                     Text(String(cat.label.prefix(4)))
-                        .font(.system(size: 10, weight: .medium, design: .rounded))
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.4))
                         .frame(maxWidth: .infinity)
                 }
@@ -395,7 +398,7 @@ private struct LegendDot: View {
                 .fill(color)
                 .frame(width: 12, height: 5)
             Text(label)
-                .font(.system(size: 11, weight: .medium, design: .rounded))
+                .font(.system(size: 12, weight: .medium, design: .rounded))
                 .foregroundColor(.white.opacity(0.5))
         }
     }

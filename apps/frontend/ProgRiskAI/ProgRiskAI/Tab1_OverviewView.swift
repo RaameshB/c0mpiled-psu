@@ -122,11 +122,11 @@ private struct RiskDonutChart: View {
                             .frame(width: 8, height: 8)
                             .shadow(color: colors[idx % colors.count].opacity(0.6), radius: 3)
                         Text(slice.label)
-                            .font(.system(size: 13, weight: .medium, design: .rounded))
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.75))
                         Spacer()
                         Text("\(slice.percentage, specifier: "%.1f")%")
-                            .font(.system(size: 13, weight: .bold, design: .monospaced))
+                            .font(.system(size: 14, weight: .bold, design: .monospaced))
                             .foregroundColor(.white.opacity(0.9))
                     }
                     .opacity(appeared ? 1 : 0)
@@ -271,11 +271,11 @@ private struct ResilienceFactorBar: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
                 Text(factor.label)
-                    .font(.system(size: 12, weight: .medium, design: .rounded))
+                    .font(.system(size: 13, weight: .medium, design: .rounded))
                     .foregroundColor(.white.opacity(0.65))
                 Spacer()
                 Text("\(factor.score)")
-                    .font(.system(size: 12, weight: .bold, design: .monospaced))
+                    .font(.system(size: 13, weight: .bold, design: .monospaced))
                     .foregroundColor(.white.opacity(0.9))
             }
             GeometryReader { geo in
@@ -308,7 +308,7 @@ private struct IndustryProfileView: View {
         VStack(spacing: 16) {
             // Description
             Text(info.description)
-                .font(.system(size: 14, design: .rounded))
+                .font(.system(size: 15, design: .rounded))
                 .foregroundColor(.white.opacity(0.7))
                 .lineSpacing(4)
                 .fixedSize(horizontal: false, vertical: true)
@@ -338,21 +338,20 @@ private struct IndustryStat: View {
         VStack(alignment: .leading, spacing: 6) {
             HStack(spacing: 5) {
                 Image(systemName: icon)
-                    .font(.system(size: 11))
+                    .font(.system(size: 12))
                     .foregroundStyle(DesignSystem.Gradients.primaryAccent)
                 Text(label)
-                    .font(.system(size: 11, weight: .medium, design: .rounded))
+                    .font(.system(size: 12, weight: .medium, design: .rounded))
                     .foregroundColor(.white.opacity(0.45))
             }
             Text(value)
-                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                .font(.system(size: 15, weight: .semibold, design: .rounded))
                 .foregroundColor(.white.opacity(0.9))
                 .lineLimit(2)
         }
         .padding(12)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.white.opacity(0.04), in: RoundedRectangle(cornerRadius: 12))
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.white.opacity(0.07), lineWidth: 1))
+        .glassEffect(in: .rect(cornerRadius: 12))
     }
 }
 
@@ -442,7 +441,7 @@ private struct RiskTrendChart: View {
                                     .font(.system(size: 14, weight: .bold, design: .monospaced))
                                     .foregroundColor(.white)
                                 Text(formatMonth(pt.month))
-                                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                                    .font(.system(size: 12, weight: .medium, design: .rounded))
                                     .foregroundColor(.white.opacity(0.55))
                             }
                             .padding(.horizontal, 10)
@@ -473,7 +472,7 @@ private struct RiskTrendChart: View {
                 ForEach(Array(points.enumerated()), id: \.element.id) { i, pt in
                     if i % 3 == 0 {
                         Text(formatMonth(pt.month))
-                            .font(.system(size: 10, weight: .medium, design: .rounded))
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
                             .foregroundColor(.white.opacity(0.35))
                             .position(x: CGFloat(i) * step, y: h + 12)
                     }

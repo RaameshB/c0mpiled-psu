@@ -88,7 +88,7 @@ private struct DependencySummaryStrip: View {
                         .font(.system(size: 26, weight: .black, design: .rounded))
                         .foregroundColor(.white)
                     Text(stat.0)
-                        .font(.system(size: 11, weight: .medium, design: .rounded))
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.45))
                 }
                 .frame(maxWidth: .infinity)
@@ -136,7 +136,7 @@ private struct ConcentrationRiskCard: View {
                     VStack(alignment: .leading, spacing: 3) {
                         HStack(spacing: 8) {
                             Text(risk.label)
-                                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                .font(.system(size: 15, weight: .semibold, design: .rounded))
                                 .foregroundColor(.white.opacity(0.9))
                             Spacer()
                             RiskBadge(level: risk.severity)
@@ -151,8 +151,8 @@ private struct ConcentrationRiskCard: View {
             .buttonStyle(.plain)
 
             if isExpanded {
-                Text(risk.description)
-                    .font(.system(size: 13, design: .rounded))
+                    Text(risk.description)
+                        .font(.system(size: 14, design: .rounded))
                     .foregroundColor(.white.opacity(0.6))
                     .lineSpacing(4)
                     .padding(.top, 12)
@@ -161,8 +161,8 @@ private struct ConcentrationRiskCard: View {
             }
         }
         .padding(14)
-        .background(severityColor.opacity(0.06), in: RoundedRectangle(cornerRadius: 14))
-        .overlay(RoundedRectangle(cornerRadius: 14).stroke(severityColor.opacity(0.2), lineWidth: 1))
+        .glassEffect(in: .rect(cornerRadius: 14))
+        .overlay(RoundedRectangle(cornerRadius: 14).stroke(severityColor.opacity(0.3), lineWidth: 1))
         .opacity(appeared ? 1 : 0)
         .offset(y: appeared ? 0 : 20)
         .animation(.spring(duration: 0.5).delay(Double(index) * 0.1), value: appeared)
@@ -206,7 +206,7 @@ private struct Tier2SupplierRow: View {
                             Text("·")
                             Label(supplier.dependencyType, systemImage: "link")
                         }
-                        .font(.system(size: 11, weight: .medium, design: .rounded))
+                        .font(.system(size: 12, weight: .medium, design: .rounded))
                         .foregroundColor(.white.opacity(0.45))
                         .lineLimit(1)
                     }
@@ -218,8 +218,8 @@ private struct Tier2SupplierRow: View {
 
                         if !supplier.tier3Suppliers.isEmpty {
                             HStack(spacing: 3) {
-                                Text("\(supplier.tier3Suppliers.count) Tier 3")
-                                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                    Text("\(supplier.tier3Suppliers.count) Tier 3")
+                                .font(.system(size: 11, weight: .medium, design: .rounded))
                                     .foregroundColor(.white.opacity(0.35))
                                 Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
                                     .font(.system(size: 9))
@@ -291,14 +291,14 @@ private struct Tier3SupplierRow: View {
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(supplier.name)
-                    .font(.system(size: 13, weight: .semibold, design: .rounded))
+                    .font(.system(size: 14, weight: .semibold, design: .rounded))
                     .foregroundColor(.white.opacity(0.8))
                 HStack(spacing: 6) {
                     Text(supplier.country)
                     Text("·")
                     Text(supplier.sector)
                 }
-                .font(.system(size: 11, design: .rounded))
+                .font(.system(size: 12, design: .rounded))
                 .foregroundColor(.white.opacity(0.4))
             }
 
